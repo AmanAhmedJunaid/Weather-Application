@@ -1,11 +1,11 @@
-<section class="bg-amber-800 h-full w-full py-10 px-36">
+<section class="bg-amber-600 h-full w-full py-10 px-36">
     <header class="w-full flex justify-end items-center px-10 ">
         <div class="flex justify-items-start  py-2 text-white text-xl items-center">
-            <div class="flex items-center rounded-[6px] p-3 bg-[#ffffff40] ">
+            <div class="flex items-center rounded-[6px] p-3 bg-[var(--bg)] ">
                 <mat-icon class="pr-2"> location_on</mat-icon>
             </div>
             <input class="px-2" id="location--input" type="text" placeholder="Search Location">
-            <div class="flex items-center rounded-[6px] p-3 bg-[#ffffff40] ">
+            <div class="flex items-center rounded-[6px] p-3 bg-[var(--bg)] ">
              <mat-icon style="transform: scale(1.2);">search</mat-icon>   
             </div>
         </div>
@@ -31,7 +31,7 @@
             </div>
             <div class="mt-5 flex items-center text-white font-light text-2xl" >
                 <div class="flex gap-5 items-center text-[16px] text-[var(--text)]">
-                    <img src="assets/img/navigation.png" width="23" style="transform: rotate(45deg);" alt="">
+                    <i class="fa-regular fa-location-arrow" style="transform: rotate(45deg);"></i>
                     <div>Wind &nbsp;<span>10 km/h</span></div>
                 </div>
                 &nbsp;
@@ -40,8 +40,8 @@
                 &nbsp;
                 &nbsp;
                 <div class="flex gap-5 items-center text-[16px] text-[var(--text)]">
-                    <img src="assets/img/navigation.png" width="23" style="transform: rotate(45deg);" alt="">
-                    <div>Wind  &nbsp; <span>10 km/h</span></div>
+                    <i class="fa-regular fa-droplet"></i>
+                    <div>Hum  &nbsp; <span>54%</span></div>
                 </div>
                 &nbsp;
                 &nbsp;
@@ -49,13 +49,32 @@
                 &nbsp;
                 &nbsp;
                 <div class="flex gap-5 items-center text-[16px] text-[var(--text)]">
-                    <img src="assets/img/navigation.png" width="23" style="transform: rotate(45deg);" alt="">
-                    <div>Wind  &nbsp; <span>10 km/h</span></div>
+                    <i class="fa-regular fa-cloud-rain"></i>
+                    <div>Rain  &nbsp; <span>0.2%</span></div>
                 </div>
             </div>
         </div>
     </main>
-    <section>
+    <section class="mt-15 w-[50%] overflow-hidden">
+        <div class="flex justify-start items-center gap-14 relative">
+            @for (item of num; track $index) {
 
+                <div class="flex flex-col shrink-0 items-center bg-[var(--bg)] py-2 px-5 rounded-[9px] text-[var(--text)] gap-6">
+                    <div class="flex justify-center  font-light items-center ">
+                        <span class="text-2xl">24</span>
+                        <img src="assets/img/C-temp.png" width="24">
+                    </div>
+                    <div>
+                        <img src="assets/img/10060.png" style="filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.375));"  width="60" alt="">
+                    </div>
+                    <div>
+                        <span class="text-xl font-light text-[var(--text)]">Thu</span>
+                    </div>
+                </div>
+            }
+            <div class="absolute right-0 text-[var(--text)] ">
+                <i class="fa-thin fa-angle-right text-7xl"></i>
+            </div>
+        </div>
     </section>
 </section>

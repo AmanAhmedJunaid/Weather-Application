@@ -1,4 +1,4 @@
-<section class="bg-amber-600 h-full w-full py-10 px-36">
+<section [style]="rainStyle" class="h-full w-full py-10 px-36">
     <header class="w-full flex justify-end items-center px-10 ">
         <div class="flex justify-items-start  py-2 text-white text-xl items-center">
             <div class="flex items-center rounded-[6px] p-3 bg-[var(--bg)] ">
@@ -55,11 +55,12 @@
             </div>
         </div>
     </main>
-    <section class="mt-15 w-[50%] overflow-hidden">
-        <div class="flex justify-start items-center gap-14 relative">
-            @for (item of num; track $index) {
-
-                <div class="flex flex-col shrink-0 items-center bg-[var(--bg)] py-2 px-5 rounded-[9px] text-[var(--text)] gap-6">
+    <section class="mt-15 flex justify-items-start w-[45%]  relative ">
+        
+        
+        <swiper-container init="false" slides-per-view="3" #swiperContainer class="">
+            <swiper-slide class="flex justify-start items-center relative" *ngFor="let item  of slides">
+                <div  class=" flex flex-col shrink-0 items-center bg-[var(--bg)] py-2 w-[70%] rounded-[9px] text-[var(--text)] gap-6">
                     <div class="flex justify-center  font-light items-center ">
                         <span class="text-2xl">24</span>
                         <img src="assets/img/C-temp.png" width="24">
@@ -71,10 +72,18 @@
                         <span class="text-xl font-light text-[var(--text)]">Thu</span>
                     </div>
                 </div>
-            }
-            <div class="absolute right-0 text-[var(--text)] ">
-                <i class="fa-thin fa-angle-right text-7xl"></i>
-            </div>
+            </swiper-slide>
+        </swiper-container>
+
+        <div class="flex justify-center items-center">
+            <div class=" text-white text-6xl  font-light">
+                <button class=" button--next  cursor-pointer border-y-indigo-800">
+                   <div class="cursor-pointer">
+                    <i class="fa-thin fa-chevron-right"></i>
+                    </div>
+                </button>
         </div>
+        </div>
+
     </section>
 </section>

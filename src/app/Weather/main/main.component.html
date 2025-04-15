@@ -1,10 +1,10 @@
-<section [style]="rainStyle" class="h-full w-full py-10 px-36">
+<section [style]="isday" class="h-full w-full py-10 px-36">
     <header class="w-full flex justify-end items-center px-10 ">
         <div class="flex justify-items-start  py-2 text-white text-xl items-center">
             <div class="flex items-center rounded-[6px] p-3 bg-[var(--bg)] ">
                 <mat-icon class="pr-2"> location_on</mat-icon>
             </div>
-            <input class="px-2" id="location--input" type="text" placeholder="Search Location">
+            <input class="px-2" id="location--input" (click)="clearValue()" (blur)="checkValue()" [value]="location" type="text" placeholder="Search Location">
             <div class="flex items-center rounded-[6px] p-3 bg-[var(--bg)] ">
              <mat-icon style="transform: scale(1.2);">search</mat-icon>   
             </div>
@@ -13,26 +13,36 @@
     <main class="-mt-10">
         <div>
             <div>
-                <img src="assets/img/10000.png" style="transform: rotate(90deg);" width="100"  alt="">
+                <img [src]="dailyImage"  width="150"  alt="">
             </div>
             <div class=" mt-8 flex items-start  text-[var(--text)]">
                 <p  class="text-9xl font-light">
-                    27
+                    {{currentWeather.current?.temp_c}}
                 </p>
                 <img class="" src="assets/img/C-temp.png" width="30" alt="">
             </div>
             <div class="text-[var(--text)] text-2xl font-light mt-3 ">
-                17th June '21
+                {{date | date:' d MMM YY'}}
             </div>
             <div class="flex text-[var(--text)] text-lg mt-1 font-extralight items-center gap-4">
-                <div>Thursday</div>
+                <div>{{currentDay}}</div>
                 |
-                <div>2:24 am</div>
+                <div>{{date | date:'h:mm aaa'}}</div>
             </div>
             <div class="mt-5 flex items-center text-white font-light text-2xl" >
                 <div class="flex gap-5 items-center text-[16px] text-[var(--text)]">
-                    <i class="fa-regular fa-location-arrow" style="transform: rotate(45deg);"></i>
-                    <div>Wind &nbsp;<span>10 km/h</span></div>
+                    <i class="fa-solid fa-temperature-high"></i>
+                    <div>Max&nbsp;<span>{{maxTemp}}c</span></div>
+                </div>
+                &nbsp;
+                &nbsp;
+                |
+                
+                &nbsp;
+                &nbsp;
+                <div class="flex gap-5 items-center text-[16px] text-[var(--text)]">
+                    <i class="fa-solid fa-temperature-low"></i>
+                    <div>Min &nbsp; <span>{{minTemp}}c</span></div>
                 </div>
                 &nbsp;
                 &nbsp;
@@ -41,7 +51,7 @@
                 &nbsp;
                 <div class="flex gap-5 items-center text-[16px] text-[var(--text)]">
                     <i class="fa-regular fa-droplet"></i>
-                    <div>Hum  &nbsp; <span>54%</span></div>
+                    <div>Hum  &nbsp; <span>{{this.currentWeather.current?.humidity}}%</span></div>
                 </div>
                 &nbsp;
                 &nbsp;
@@ -50,7 +60,7 @@
                 &nbsp;
                 <div class="flex gap-5 items-center text-[16px] text-[var(--text)]">
                     <i class="fa-regular fa-cloud-rain"></i>
-                    <div>Rain  &nbsp; <span>0.2%</span></div>
+                    <div>Rain  &nbsp; <span>{{rainChance}}%</span></div>
                 </div>
             </div>
         </div>
@@ -59,17 +69,17 @@
         
         
         <swiper-container init="false" slides-per-view="3" #swiperContainer class="">
-            <swiper-slide class="flex justify-start items-center relative" *ngFor="let item  of slides">
+            <swiper-slide class="flex justify-start items-center relative" *ngFor="let forecastday of forecast">
                 <div  class=" flex flex-col shrink-0 items-center bg-[var(--bg)] py-2 w-[70%] rounded-[9px] text-[var(--text)] gap-6">
                     <div class="flex justify-center  font-light items-center ">
-                        <span class="text-2xl">24</span>
+                        <span class="text-2xl">{{forecastday.day?.avgtemp_c}}</span>
                         <img src="assets/img/C-temp.png" width="24">
                     </div>
                     <div>
                         <img src="assets/img/10060.png" style="filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.375));"  width="60" alt="">
                     </div>
                     <div>
-                        <span class="text-xl font-light text-[var(--text)]">Thu</span>
+                        <span class="text-xl font-light text-[var(--text)]">{{forecastday.date | date:'ccc'}}</span>
                     </div>
                 </div>
             </swiper-slide>
@@ -87,3 +97,10 @@
 
     </section>
 </section>
+
+
+
+    <div [ngClass]="isloading === true  ? 'flex' : 'hidden'" class="z-[999] w-full absolute top-0 text-5xl text-white h-[100vh] flex justify-center items-center" [style]="dayStyle">
+        Loading...
+    </div>
+

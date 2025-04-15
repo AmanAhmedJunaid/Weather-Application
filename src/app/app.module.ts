@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MaterialsModule } from './materials/materials.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -14,9 +15,11 @@ import { MaterialsModule } from './materials/materials.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialsModule
+    MaterialsModule,
+    HttpClientModule,
   ],
   providers: [
+    
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

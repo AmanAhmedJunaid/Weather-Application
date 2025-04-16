@@ -1,1 +1,9 @@
-<p>search works!</p>
+<div class="flex justify-items-start  py-2 text-white text-xl items-center">
+    <div class="flex items-center rounded-[6px] p-3 bg-[var(--bg)] ">
+        <mat-icon class="pr-2"> location_on</mat-icon>
+    </div>
+    <input class="px-2" id="location--input" (click)="clearValue()" (blur)="checkValue(loc.value)" [value]="location" #loc type="text" placeholder="Search Location">
+    <div class="flex items-center cursor-pointer rounded-[6px] p-3 bg-[var(--bg)]" (click)="setCity(loc.value)">
+     <mat-icon style="transform: scale(1.2);">search</mat-icon>   
+    </div>
+</div>

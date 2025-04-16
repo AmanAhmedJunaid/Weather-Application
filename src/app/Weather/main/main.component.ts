@@ -3,6 +3,7 @@ import { WeatherModule } from '../weather/weather.module';
 import { SwiperOptions } from 'swiper/types';
 import { WeatherService } from '../assets/Services/weather.service';
 import { Forecastday, weather } from '../assets/Model/weather';
+import { SwiperContainer } from 'swiper/element';
 
 @Component({
   selector: 'app-main',
@@ -11,7 +12,7 @@ import { Forecastday, weather } from '../assets/Model/weather';
 })
 export class MainComponent implements AfterViewInit, OnInit {
 
-  @ViewChild('swiperContainer') swiperContainerRef!: ElementRef;
+  @ViewChild('swiperContainer') swiperContainerRef!: ElementRef<SwiperContainer>;
   public swiperParams!: SwiperOptions;
   isloading: boolean = true
   location: string = ''
@@ -25,9 +26,7 @@ export class MainComponent implements AfterViewInit, OnInit {
   rainStyle: string = `background: #A8C8ED; background: linear-gradient(15deg, rgba(168, 200, 237, 1) 0%, rgba(118, 115, 220, 1) 100%);`
   weekdays: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   currentDay: string = ''
-  localTime: number = 0
   date!: Date
-  dailyImage!: string
   currentWeather: weather = {}
   forecast: Forecastday[] = [];
 
@@ -48,20 +47,14 @@ export class MainComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.weatherService.getWeather().subscribe((data) => {
+      this.isloading = true
       this.forecast = data.forecast?.forecastday as Forecastday[]
       this.setWeather(data)
 
     })
+    // this.weatherService.setWeather()
   }
 
-  clearValue() {
-    this.location = ''
-  }
-  checkValue() {
-    if (this.location === '') {
-      this.location = `${this.currentWeather.location?.name} , ${this.currentWeather.location?.country}`
-    }
-  }
 
   setWeather(data: weather) {
     this.currentWeather = data
@@ -72,8 +65,8 @@ export class MainComponent implements AfterViewInit, OnInit {
     this.minTemp = this.currentWeather.forecast?.forecastday[0].day?.mintemp_c as number
     this.date = new Date(this.currentWeather.location?.localtime as string);
     this.currentDay = this.weekdays[this.date.getDay()]
-    this.localTime = this.date.getHours()
-    this.dailyImage = `assets/img/${("" + this.currentWeather.current?.condition.code + this.currentWeather.current?.is_day)}.png`
+    this.forecast.shift()
+    this.swiperContainerRef.nativeElement.swiper.slideTo(0)
     this.isloading = false
 
   }

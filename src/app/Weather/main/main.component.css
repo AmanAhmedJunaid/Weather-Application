@@ -1,10 +1,4 @@
-#location--input:focus{
-    outline: none;
-}
 
-#location--input:focus::placeholder{
-    font-size: 0px;
-}
 
 
 
@@ -18,3 +12,6 @@ swiper-container {
 
 
 
+  swiper-slide{
+    width: 34% !important;
+  }

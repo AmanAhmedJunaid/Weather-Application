@@ -4,6 +4,8 @@ import { SwiperOptions } from 'swiper/types';
 import { WeatherService } from '../assets/Services/weather.service';
 import { Forecastday, weather } from '../assets/Model/weather';
 import { SwiperContainer } from 'swiper/element';
+import * as $ from 'jquery'
+
 
 @Component({
   selector: 'app-main',
@@ -11,7 +13,7 @@ import { SwiperContainer } from 'swiper/element';
   styleUrl: './main.component.css',
 })
 export class MainComponent implements AfterViewInit, OnInit {
-
+  
   @ViewChild('swiperContainer') swiperContainerRef!: ElementRef<SwiperContainer>;
   public swiperParams!: SwiperOptions;
   isloading: boolean = true
@@ -61,6 +63,9 @@ export class MainComponent implements AfterViewInit, OnInit {
     this.location = `${this.currentWeather.location?.name} , ${this.currentWeather.location?.country}`
     this.isday = this.currentWeather.current?.is_day == 0 ? this.nightStyle : this.dayStyle
     this.rainChance = this.currentWeather.forecast?.forecastday[0].day?.daily_chance_of_rain as number
+    if(this.rainChance > 40){
+      this.isday = this.rainStyle
+    }
     this.maxTemp = this.currentWeather.forecast?.forecastday[0].day?.maxtemp_c as number
     this.minTemp = this.currentWeather.forecast?.forecastday[0].day?.mintemp_c as number
     this.date = new Date(this.currentWeather.location?.localtime as string);
@@ -68,7 +73,7 @@ export class MainComponent implements AfterViewInit, OnInit {
     this.forecast.shift()
     this.swiperContainerRef.nativeElement.swiper.slideTo(0)
     this.isloading = false
-
+    
   }
 
 

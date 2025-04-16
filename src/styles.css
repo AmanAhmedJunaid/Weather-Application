@@ -13,4 +13,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
+  --mat-autocomplete-background-color: linear-gradient(15deg, rgba(255, 150, 150, 0.3) 0%, rgba(140, 107, 174, 0.3) 100%) !important;
+    
 }
+
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text{
+  color: #fff !important;
+}
+
+

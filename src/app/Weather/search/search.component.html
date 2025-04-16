@@ -2,7 +2,18 @@
     <div class="flex items-center rounded-[6px] p-3 bg-[var(--bg)] ">
         <mat-icon class="pr-2"> location_on</mat-icon>
     </div>
-    <input class="px-2" id="location--input" (click)="clearValue()" (blur)="checkValue(loc.value)" [value]="location" #loc type="text" placeholder="Search Location">
+    <input class="px-2" [matAutocomplete]="auto" (keypress.enter)="setCity(loc.value)" (keyup)="getCities()" [(ngModel)]="city" id="location--input" (click)="clearValue()" (blur)="checkValue(loc.value)" [value]="location" #loc type="text" placeholder="Search Location">
+    <mat-autocomplete color="primary" (change)="setCity(loc.value)" panelClass="custompanel" #auto="matAutocomplete">
+        @for (citi of cities; track citi) {
+          <mat-option (click)="setCity(citi)"  [value]="citi">
+            <div class="">
+                <div class="py-2 ">
+                    {{citi}}
+                </div>
+            </div>
+          </mat-option>
+        }
+      </mat-autocomplete>
     <div class="flex items-center cursor-pointer rounded-[6px] p-3 bg-[var(--bg)]" (click)="setCity(loc.value)">
      <mat-icon style="transform: scale(1.2);">search</mat-icon>   
     </div>

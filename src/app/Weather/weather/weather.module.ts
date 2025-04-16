@@ -5,7 +5,8 @@ import { SearchComponent } from '../search/search.component';
 import { CityWeatherComponent } from '../city-weather/city-weather.component';
 import { MaterialsModule } from '../../materials/materials.module';
 import { SwiperModule } from 'swiper/types';
-
+import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,9 @@ import { SwiperModule } from 'swiper/types';
   imports: [
     CommonModule,
     MaterialsModule,
+    FormsModule,
+    DatePipe,
+    
     
 
   ],

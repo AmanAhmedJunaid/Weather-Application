@@ -1,7 +1,18 @@
+
+
+
 #location--input:focus{
     outline: none;
 }
 
 #location--input:focus::placeholder{
     font-size: 0px;
+}
+
+*{
+    --mat-option-label-text-color: var(--text) ;
+}
+
+.mat-mdc-option.mdc-list-item{
+    border-bottom: 0.5px solid #fcfcfc91 ;
 }

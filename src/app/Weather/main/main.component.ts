@@ -37,8 +37,15 @@ export class MainComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     this.swiperParams = {
       navigation: {
-        nextEl: '.button--next',
-        prevEl: '.button--prev'
+        nextEl: '.button--next'
+      },
+      breakpoints:{
+        450:{
+          slidesPerView:2
+        },
+        700:{
+          slidesPerView:3
+        }
       }
     };
 
@@ -49,13 +56,18 @@ export class MainComponent implements AfterViewInit, OnInit {
 
 
   ngOnInit(): void {
-    this.weatherService.getWeather().subscribe((data) => {
-      this.isloading = true
-      this.forecast = data.forecast?.forecastday as Forecastday[]
-      this.setWeather(data)
-
+   
+    this.weatherService.getLocationViaIp()
+    this.weatherService.ipFetched.subscribe((res)=>{
+      if(res){
+        this.weatherService.getWeather().subscribe((data) => {
+          this.isloading = true
+          this.forecast = data.forecast?.forecastday as Forecastday[]
+          setTimeout(()=>this.setWeather(data),500)
+        })
+      }
     })
-    // this.weatherService.setWeather()
+    
   }
 
 

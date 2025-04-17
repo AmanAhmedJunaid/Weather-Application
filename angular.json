@@ -98,9 +98,7 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js"
-            ]
+            "scripts": []
           }
         }
       }

@@ -1,8 +1,5 @@
-
-
-
-<section [style]="isday" class="h-full w-full py-10 px-36">
-    <header class="w-full flex justify-end items-center px-10 ">
+<section [style]="isday" [ngClass]="isRaining === true  ? 'rain' : '' " class="h-full w-full py-10 px-36 relative">
+    <header class="w-full flex justify-end items-center px-10 z-2">
         <location-search [location]="location"></location-search>
     </header>
     <main class="-mt-24">

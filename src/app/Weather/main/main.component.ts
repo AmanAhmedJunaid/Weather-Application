@@ -29,6 +29,7 @@ export class MainComponent implements AfterViewInit, OnInit {
   weekdays: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   currentDay: string = ''
   date!: Date
+  isRaining:boolean=false
   currentWeather: weather = {}
   forecast: Forecastday[] = [];
 
@@ -65,6 +66,10 @@ export class MainComponent implements AfterViewInit, OnInit {
     this.rainChance = this.currentWeather.forecast?.forecastday[0].day?.daily_chance_of_rain as number
     if(this.rainChance > 40){
       this.isday = this.rainStyle
+      this.isRaining = true
+    }
+    else{
+      this.isRaining = false
     }
     this.maxTemp = this.currentWeather.forecast?.forecastday[0].day?.maxtemp_c as number
     this.minTemp = this.currentWeather.forecast?.forecastday[0].day?.mintemp_c as number

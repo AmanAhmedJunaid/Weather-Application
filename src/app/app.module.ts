@@ -9,8 +9,7 @@ import { WeatherModule } from './Weather/weather/weather.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    
+    AppComponent    
   ],
   imports: [
     BrowserModule,

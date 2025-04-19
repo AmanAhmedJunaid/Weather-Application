@@ -21,13 +21,11 @@ swiper-container {
   background: url(/assets/img/rain.png);
   background-size: contain;
   background-attachment: fixed;
-  animation: rain 0.8s ease-in-out infinite;
+  animation: rain 0.8s linear infinite;
   opacity: 0;
   pointer-events: none;
 }
 
-/* just changing the position of image 
-of rain using keyframes*/
 @keyframes rain {
   0% {
       background-position: 0 0;
@@ -76,3 +74,12 @@ on different interval using keyframe*/
   }
 
 }
+
+@media (max-width: 450px){
+  swiper-slide{
+    width: 100% !important;
+  }
+
+
+}
+

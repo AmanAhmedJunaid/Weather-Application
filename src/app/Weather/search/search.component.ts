@@ -3,8 +3,9 @@ import { WeatherService } from '../assets/Services/weather.service';
 import { LocationService } from '../assets/Services/location.service';
 import { WeatherModule } from '../weather/weather.module';
 import { MaterialsModule } from '../../materials/materials.module';
-import { delay, distinctUntilChanged } from 'rxjs';
+import { catchError, delay, distinctUntilChanged } from 'rxjs';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'location-search',
@@ -12,10 +13,12 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
+  @Input() styleClass:string=''
   @ViewChild('loc') locationInput!: ElementRef<HTMLInputElement>;
   @Input() location :string= ''
   @ViewChild(MatAutocompleteTrigger) autocompleteTrigger!: MatAutocompleteTrigger;
   locationData:string =''
+  router = inject(Router)
   weatherService = inject(WeatherService)
   locationService = inject(LocationService)
   cities:string[]=[]
@@ -42,6 +45,7 @@ export class SearchComponent {
         this.locationInput.nativeElement.blur()
       
       this.weatherService.weatherCity.next(value)
+      this.router.navigateByUrl('/')
     }
     
    }

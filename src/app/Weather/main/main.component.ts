@@ -5,6 +5,7 @@ import { WeatherService } from '../assets/Services/weather.service';
 import { Forecastday, weather } from '../assets/Model/weather';
 import { SwiperContainer } from 'swiper/element';
 import * as $ from 'jquery'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +16,8 @@ import * as $ from 'jquery'
 export class MainComponent implements AfterViewInit, OnInit {
   
   @ViewChild('swiperContainer') swiperContainerRef!: ElementRef<SwiperContainer>;
-  public swiperParams!: SwiperOptions;
+  swiperParams!: SwiperOptions;
+  styleClass:string = 'px-2 w-[60vw] sm:w-[250px]'
   isloading: boolean = true
   location: string = ''
   weatherService = inject(WeatherService)
@@ -32,6 +34,9 @@ export class MainComponent implements AfterViewInit, OnInit {
   isRaining:boolean=false
   currentWeather: weather = {}
   forecast: Forecastday[] = [];
+  router = inject(Router)
+
+
 
 
   ngAfterViewInit(): void {
@@ -40,6 +45,9 @@ export class MainComponent implements AfterViewInit, OnInit {
         nextEl: '.button--next'
       },
       breakpoints:{
+        250:{
+          slidesPerView:1,
+        },
         450:{
           slidesPerView:2
         },
@@ -60,13 +68,21 @@ export class MainComponent implements AfterViewInit, OnInit {
     this.weatherService.getLocationViaIp()
     this.weatherService.ipFetched.subscribe((res)=>{
       if(res){
-        this.weatherService.getWeather().subscribe((data) => {
+        this.weatherService.getWeather().subscribe((data) =>{ 
           this.isloading = true
+          this.weatherService.notFound = false
           this.forecast = data.forecast?.forecastday as Forecastday[]
-          setTimeout(()=>this.setWeather(data),500)
+          setTimeout(()=>this.setWeather(data),500) 
+        },
+        (err)=>{
+              this.isloading = true
+              setTimeout(()=>{
+                this.router.navigateByUrl("/not-found")
+              },400)
         })
       }
-    })
+    }
+  )
     
   }
 

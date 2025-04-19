@@ -2,7 +2,7 @@
     <div class="flex items-center rounded-[6px] p-3 bg-[var(--bg)] ">
         <mat-icon class="pr-2"> location_on</mat-icon>
     </div>
-    <input class="px-2 w-[60vw] sm:w-[250px] " [matAutocomplete]="auto" (keypress)="search($event,loc)" (keyup)="getCities()" [(ngModel)]="city" id="location--input" (click)="clearValue()"  (blur)="checkValue(loc.value)" [value]="location" #loc type="text" placeholder="Search Location">
+    <input [class]="styleClass" [matAutocomplete]="auto" (keypress)="search($event,loc)" (keyup)="getCities()" [(ngModel)]="city" id="location--input" (click)="clearValue()"  (blur)="checkValue(loc.value)" [value]="location" #loc type="text" placeholder="Search Location">
     <mat-autocomplete panelClass="custompanel" #auto="matAutocomplete">
         @for (citi of cities; track citi) {
           <mat-option (onSelectionChange)="setCity(citi) ; loc.blur()" (click)="setCity(citi) ; loc.blur()"  [value]="citi">

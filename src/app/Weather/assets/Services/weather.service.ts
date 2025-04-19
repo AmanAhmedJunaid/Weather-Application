@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { weather } from '../Model/weather';
-import { BehaviorSubject, catchError, throwError , map, mergeMap} from 'rxjs';
+import { BehaviorSubject, catchError, throwError , map, mergeMap, of} from 'rxjs';
 import { ip } from '../Model/ip';
 
 @Injectable({
@@ -17,8 +17,11 @@ export class WeatherService {
   http = inject(HttpClient)
   currentWeather: weather = {}
   ipFetched = new BehaviorSubject<boolean>(false)
+  notFound:boolean=false
  getLocationViaIp(){
-   this.http.get<ip>('https://geolocation-db.com/json/')
+   this.ipFetched.subscribe(fet=>{
+    if(fet == false){
+      this.http.get<ip>('https://geolocation-db.com/json/')
     .subscribe((res)=>{
       this.weatherCity.next(res.IPv4)
       this.ipFetched.next(true)
@@ -26,14 +29,15 @@ export class WeatherService {
   (err)=>{
     this.weatherCity.next("London")
     this.ipFetched.next(true)
-  }
-)
+  })}
+   })
   
  }
 
 
 
   getWeather(){
+    this.notFound = true
   return this.weatherCity.pipe(
       mergeMap(value=> this.http.get<weather>(`http://api.weatherapi.com/v1/forecast.json?key=856473561c9744d6a30195705250904&q=${value}&days=8`))
     )

@@ -11,8 +11,8 @@ export class WeatherService {
 
   constructor() { }
 
-  ipurl:string='https://geolocation-db.com/json/'
-  url:string = "http://api.weatherapi.com/v1/forecast.json?key=856473561c9744d6a30195705250904&q=Karachi&days=8"
+  ipurl:string='//geolocation-db.com/json/'
+  url:string = "//api.weatherapi.com/v1/forecast.json?key=856473561c9744d6a30195705250904&q=Karachi&days=8"
   weatherCity = new BehaviorSubject<string>('')
   http = inject(HttpClient)
   currentWeather: weather = {}
@@ -21,7 +21,7 @@ export class WeatherService {
  getLocationViaIp(){
    this.ipFetched.subscribe(fet=>{
     if(fet == false){
-      this.http.get<ip>('https://geolocation-db.com/json/')
+      this.http.get<ip>('//geolocation-db.com/json/')
     .subscribe((res)=>{
       this.weatherCity.next(res.IPv4)
       this.ipFetched.next(true)
@@ -39,7 +39,7 @@ export class WeatherService {
   getWeather(){
     this.notFound = true
   return this.weatherCity.pipe(
-      mergeMap(value=> this.http.get<weather>(`http://api.weatherapi.com/v1/forecast.json?key=856473561c9744d6a30195705250904&q=${value}&days=8`))
+      mergeMap(value=> this.http.get<weather>(`//api.weatherapi.com/v1/forecast.json?key=856473561c9744d6a30195705250904&q=${value}&days=8`))
     )
   }
 }

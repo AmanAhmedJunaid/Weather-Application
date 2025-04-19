@@ -11,7 +11,7 @@ export class LocationService {
   constructor() { }
 
   
-  url:string="http://api.weatherapi.com/v1/search.json?key=856473561c9744d6a30195705250904&q="
+  url:string="//api.weatherapi.com/v1/search.json?key=856473561c9744d6a30195705250904&q="
   http = inject(HttpClient)
   
   getLocations(city:string){

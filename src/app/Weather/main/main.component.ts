@@ -64,12 +64,13 @@ export class MainComponent implements AfterViewInit, OnInit {
 
 
   ngOnInit(): void {
-    this.forecast = []
+    
     this.weatherService.getLocationViaIp()
     this.weatherService.ipFetched.subscribe((res)=>{
       if(res){
         this.weatherService.getWeather().subscribe((data) =>{ 
           this.isloading = true
+          this.forecast = []
           this.weatherService.notFound = false
           this.forecast = data.forecast?.forecastday as Forecastday[]
           setTimeout(()=>this.setWeather(data),500) 
@@ -103,7 +104,9 @@ export class MainComponent implements AfterViewInit, OnInit {
     this.minTemp = this.currentWeather.forecast?.forecastday[0].day?.mintemp_c as number
     this.date = new Date(this.currentWeather.location?.localtime as string);
     this.currentDay = this.weekdays[this.date.getDay()]
-    this.forecast.shift()
+    if(this.forecast.length == 8){
+      this.forecast.shift()
+    }
     this.swiperContainerRef.nativeElement.swiper.slideTo(0)
     this.isloading = false
     

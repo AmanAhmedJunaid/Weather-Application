@@ -64,7 +64,7 @@ export class MainComponent implements AfterViewInit, OnInit {
 
 
   ngOnInit(): void {
-   
+    this.forecast = []
     this.weatherService.getLocationViaIp()
     this.weatherService.ipFetched.subscribe((res)=>{
       if(res){

@@ -103,7 +103,7 @@ export class MainComponent implements AfterViewInit, OnInit {
     this.minTemp = this.currentWeather.forecast?.forecastday[0].day?.mintemp_c as number
     this.date = new Date(this.currentWeather.location?.localtime as string);
     this.currentDay = this.weekdays[this.date.getDay()]
-    this.forecast.shift()
+    // this.forecast.shift()
     this.swiperContainerRef.nativeElement.swiper.slideTo(0)
     this.isloading = false
     
